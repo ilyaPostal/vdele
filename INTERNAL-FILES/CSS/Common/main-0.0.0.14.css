@@ -1,0 +1,182 @@
+@CHARSET "UTF-8";
+
+label,.DisableSelectText {
+	-webkit-touch-callout:none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-o-user-select: none;
+	-webkit-user-select: none;
+	user-select: none; 
+}
+
+legend {
+	font-size: 16px;
+}
+
+textarea {
+	resize: vertical;
+}
+
+td div button {
+	width: 100%;
+}
+
+button {
+	padding: 10px 30px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0 50px #FFFFFF !important; /* Цвет фона */
+    /*background-color: rgb(250, 255, 189) !important;*/
+    -webkit-text-fill-color: #000000 !important; /* цвет текста */
+    color: #000000 !important; /* цвет текста */
+}
+
+.w3-main > div {
+	min-height: 1000px;
+}
+
+/*
+input:focus {
+	outline: #5e9ed6 !important;
+    outline-style: solid!important;
+    outline-width: 1px!important;
+    outline-offset: -1px;
+}
+*/
+
+:focus {
+	outline: #5e9ed6 !important;
+    outline-style: solid!important;
+    outline-width: 3px!important;
+    outline-offset: -3px;
+}
+
+.focus-disable {
+	outline: 			none!important;
+	-webkit-box-shadow: none!important;
+	-moz-box-shadow:    none!important;
+	box-shadow:         none!important;
+}
+
+.w3-dropdown-click {
+	position: static!important;
+}
+
+.w3-btn, .w3-button, *[class*="w3-hover-"] {
+    -webkit-transition: background-color .15s,color .15s,box-shadow .25s,opacity 0.15s,filter 0.25s,border 0.15s;
+    transition: background-color .15s,color .15s,box-shadow .15s,opacity .15s,filter .25s,border .15s;
+}
+
+.btn-modal-close {
+	border: #FFF 2px solid!important;
+    border-radius: 7px;
+    font-size: 20px;
+    padding: 4px 15px!important;
+    margin: 6px 6px 0 0;
+}
+
+/************************/
+/*		 ToolTips		*/
+/************************/
+
+.tooltip {
+    /*outline-style: dotted;*/
+}
+.tooltip + .tooltip-expand {
+	position: relative;
+    width: 100%;
+
+	/* Bug in FF
+	display: flex;
+    justify-content: center;
+    */
+    /*
+    display: grid;
+    justify-items: center;
+    */
+    /*text-align:center;*/
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s, visibility .25s;
+}
+.tooltip + .tooltip-expand > div {
+
+	position: absolute;
+    top: 100%;
+    margin-top: 10px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translateX(-50%);
+    
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /*
+    display: table-cell;
+    vertical-align: middle;
+	*/
+	
+    background-color: #fff;
+    color: #1a1a1a;
+    border-radius: 3px;
+    padding: 10px;
+    box-shadow: 0px 0px 10px #545454;
+    
+}
+.tooltip:hover + .tooltip-expand {
+    
+    visibility: visible;
+    opacity: 0.95;
+}
+
+/************************/
+/*		 				*/
+/************************/
+
+.TransitionDisabled * {
+	-webkit-transition:	none !important;
+	-moz-transition:	none !important;
+	-ms-transition:		none !important;
+	-o-transition:		none !important;
+	transition:			none !important;	
+}
+
+/*
+.table-first-col-number tbody tr td:FIRST-CHILD {
+	width: 2em;
+	vertical-align: middle;
+}
+*/
+
+.animate-opacity-quick {
+	-webkit-animation: opac 0.2s;
+	animation: opac 0.2s;
+}
+
+.alter-font {
+	font-family: "Segoe UI",Arial,sans-serif;
+}
+
+.overflow-block-text {
+	display: block !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}    
+
+.w3-input {
+	background-color: inherit;
+}
+
+.w3-table > thead > tr > th, .w3-table-all > thead > tr > th {
+	vertical-align: middle;
+}
+
+.w3-bordered > tbody > tr:LAST-OF-TYPE {
+    border-bottom: none;
+}

@@ -1,0 +1,8 @@
+
+#
+# Доступ к файлам из вне запрещён
+#
+
+Order deny,allow
+deny from all
+

@@ -1,0 +1,53 @@
+
+#
+# Привязка файлов сайта к доменному адресу
+# осуществляется в файле C:\xampp2\apache\conf\extra\httpd-vhosts.conf
+#
+
+RewriteEngine On
+
+#
+# Перенаправляет все запросы к единой точке входа.
+# Кроме случаев, когда нужен прямой доступ к файлам.
+#
+
+RewriteCond "%{REQUEST_URI}"  "^(.*)INTERNAL-FILES/CSS/(.*)$"			[OR]
+RewriteCond "%{REQUEST_URI}"  "^(.*)INTERNAL-FILES/Fonts/(.*)$"			[OR]
+RewriteCond "%{REQUEST_URI}"  "^(.*)INTERNAL-FILES/JS/(.*)$"			[OR]
+RewriteCond "%{REQUEST_URI}"  "^(.*)INTERNAL-FILES/Images/(.*)$"		[OR]
+RewriteCond "%{REQUEST_URI}"  "^(.*)INTERNAL-FILES/Files/Public/(.*)$"
+RewriteRule ^(.*)$ $1 [L]
+
+RewriteRule ^(.*)$ INTERNAL-FILES/PHP/CORE/MAIN.php [L]
+
+#
+# Доступ к сайту по IP
+#
+
+Order deny,allow
+# deny from all
+allow from all
+
+#
+# Список IP через пробел, с которых доступ разрешен
+#
+
+# Allow from 127.0.0.1
+
+#
+# HTTP заголовок с названием кодировки
+# , которая отправляется браузеру по умолчанию.
+#
+
+AddDefaultCharset UTF-8
+# AddDefaultCharset	WINDOWS-1251
+# php_value			default_charset	WINDOWS-1251
+
+# CharsetDisable on
+
+#
+# XSendFile
+#
+
+# XSendFile On
+# XSendFilePath "C:/xampp2/htdocs/local-bdc-web/INTERNAL-FILES/Files/Private/"
