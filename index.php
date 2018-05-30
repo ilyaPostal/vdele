@@ -6,6 +6,8 @@ use SITE_CORE	AS Core;
 try {
 	
 	//Core\LogWrite('Test');
+	// echo Test;
+	// exit;
 	
 } catch(Exception $ex) {
 	Core\LogWrite($ex->getMessage());
