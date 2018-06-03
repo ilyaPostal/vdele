@@ -39,6 +39,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . MainDirs::$Core. 'Login.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . MainDirs::$Core. 'RequirePageModule.php';
 
 //
+// Средства преобразования данных
+//
+
+require_once $_SERVER['DOCUMENT_ROOT'] . MainDirs::$Core. 'DataTransformation.php';
+
+//
 // Основной макет.
 //
 

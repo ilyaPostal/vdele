@@ -85,7 +85,7 @@ class JS {
 	
 	public static function Init() {
 		
-		JS::$CommonMain								= MainDirs::$JSCommon		. 'main_0.0.0.1.js';
+		JS::$CommonMain								= MainDirs::$JSCommon		. 'main_0.0.0.2.js';
 		JS::$CommonMainDefer						= MainDirs::$JSCommon 		. 'main-defer_0.0.0.4.js';
 		JS::$ModulesAlerts							= MainDirs::$JSModules		. 'alerts_0.0.0.1.js';
 		JS::$ModulesCookie							= MainDirs::$JSModules		. 'cookie.js';

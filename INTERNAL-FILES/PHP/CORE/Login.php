@@ -9,7 +9,6 @@ class LoginInfo {
 	public static $UserID			= null;
 	public static $UserName			= null;
 	public static $UserTypeID		= null;
-	public static $UserType			= null;
 	public static $IP				= null;
 	
 	public static function Init() {
@@ -19,7 +18,6 @@ class LoginInfo {
 			LoginInfo::$UserID		= isset($LoginInfo['UserID'])		? $LoginInfo['UserID'] 		: null;
 			LoginInfo::$UserName	= isset($LoginInfo['UserName'])		? $LoginInfo['UserName'] 	: null;
 			LoginInfo::$UserTypeID	= isset($LoginInfo['UserTypeID'])	? $LoginInfo['UserTypeID']	: null;
-			LoginInfo::$UserType	= isset($LoginInfo['UserType'])		? $LoginInfo['UserType'] 	: null;
 			LoginInfo::$IP			= GetGlobalData::ClientIP();
 		}
 
@@ -30,19 +28,21 @@ class LoginInfo {
 		LoginInfo::$UserID		= null;
 		LoginInfo::$UserName	= null;
 		LoginInfo::$UserTypeID	= null;
-		LoginInfo::$UserType	= null;
 	}
 	
-	public static function Save($UserID, $UserName, $UserTypeID, $UserType) {
+	public static function Save($UserID, $UserName, $UserTypeID) {
 		
-		$Values = array('UserID' => $UserID, 'UserName' => $UserName, 'UserTypeID' => $UserTypeID, 'UserType' => $UserType);
+		$Values = array('UserID' => $UserID, 'UserName' => $UserName, 'UserTypeID' => $UserTypeID);
 		
 		Session::SetValueByRoot(LoginInfo::$SessionName, $Values);
 		
 		LoginInfo::$UserID			= $UserID;
 		LoginInfo::$UserName		= $UserName;
 		LoginInfo::$UserTypeID		= $UserTypeID;
-		LoginInfo::$UserType		= $UserType;  
+	}
+	
+	public static function GetAsArray() {
+		return array( 'UserID' => LoginInfo::$UserID, 'UserName' => LoginInfo::$UserName, 'UserTypeID' => LoginInfo::$UserTypeID);
 	}
 	
 	//

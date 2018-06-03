@@ -19,13 +19,13 @@ class Connections {
 // 							, Core\DBConfiguration::$MSSQLUserPasswordConnection, Core\DBConfiguration::$PDOMSSQLConParams);
 // 				} catch(\Exception $e) {
 // 					$PDOMSSQLCon = null;
-// 					//Ïðè ATTR_PERSISTENT == true ìîæåò íå ïîäêëþ÷èòüñÿ ñ ïåðâîãî ðàçà ïîñëå ïðîñòîÿ.
+// 					//ÐŸÑ€Ð¸ ATTR_PERSISTENT == true Ð¼Ð¾Ð¶ÐµÑ‚ Ð½Ðµ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ñ Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ Ñ€Ð°Ð·Ð° Ð¿Ð¾ÑÐ»Ðµ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ñ.
 // 				};
 // 				if ($PDOMSSQLCon != null)
 // 					break;
 // 			}
 // 			if ($PDOMSSQLCon == null)
-// 				throw new \Exception('Íå óäàëîñü ïîäêëþ÷èòüñÿ ê ñåðâåðó.');
+// 				throw new \Exception('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ðº ÑÐµÑ€Ð²ÐµÑ€Ñƒ.');
 // 			$PDOMSSQLCon->setAttribute(\PDO::ATTR_ERRMODE				, \PDO::ERRMODE_EXCEPTION);
 // 			//$IsEmulate = Core\DBConfiguration::$MSSQLIsEmulatePrepares;
 // 			//$PDOMSSQLCon->setAttribute(\PDO::ATTR_EMULATE_PREPARES		, $IsEmulate);
@@ -35,7 +35,7 @@ class Connections {
 // 			//$PDOMSSQLCon->exec("SET NAMES 'utf8';");
 // 			return $PDOMSSQLCon;
 // 		} catch (\Exception $e) {
-// 			throw new Core\ExceptionToLog('Îøèáêà ñîåäèíåíèÿ c MSSQL: ' . $e->getMessage() 
+// 			throw new Core\ExceptionToLog('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ c MSSQL: ' . $e->getMessage() 
 // 					. '<br>' . Core\DBConfiguration::$MSSQLStringConnection
 // 					. '<br>' . Core\DBConfiguration::$MSSQLUserNameConnection);
 // 		}
@@ -43,33 +43,38 @@ class Connections {
 	
 	
 	public static function GetPDOMySQL() {
-		$PDOMySQLCon = null;
+		if (Connections::$PDOMySQLConnection) {
+			return Connections::$PDOMySQLConnection;
+		}
+		Connections::$PDOMySQLConnection = null;
 		try {
 			for ($i = 0; $i < 10; $i++) {
 				try {
-					$PDOMySQLCon = new \PDO(Core\DBConfiguration::$MySQLStringConnection, Core\DBConfiguration::$MySQLUserNameConnection
+					Connections::$PDOMySQLConnection = new \PDO(Core\DBConfiguration::$MySQLStringConnection, Core\DBConfiguration::$MySQLUserNameConnection
 							, Core\DBConfiguration::$MySQLUserPasswordConnection, Core\DBConfiguration::$PDOMySQLConParams);
 				} catch(\Exception $e) {
-					$PDOMySQLCon = null;
-					//Ïðè ATTR_PERSISTENT == true ìîæåò íå ïîäêëþ÷èòüñÿ ñ ïåðâîãî ðàçà ïîñëå ïðîñòîÿ.
+					Connections::$PDOMySQLConnection = null;
+					//ÐŸÑ€Ð¸ ATTR_PERSISTENT == true Ð¼Ð¾Ð¶ÐµÑ‚ Ð½Ðµ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ñ Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ Ñ€Ð°Ð·Ð° Ð¿Ð¾ÑÐ»Ðµ Ð¿Ñ€Ð¾ÑÑ‚Ð¾Ñ.
 				};
-				if ($PDOMySQLCon != null)
+				if (Connections::$PDOMySQLConnection != null)
 					break;
 			}
-			if ($PDOMySQLCon == null)
-				throw new \Exception('Íå óäàëîñü ïîäêëþ÷èòüñÿ ê ñåðâåðó.');
-				$PDOMySQLCon->setAttribute(\PDO::ATTR_ERRMODE				, \PDO::ERRMODE_EXCEPTION);
-				$PDOMySQLCon->setAttribute(\PDO::ATTR_EMULATE_PREPARES		, Core\DBConfiguration::$MySQLIsEmulatePrepares);
-				$PDOMySQLCon->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE	, \PDO::FETCH_ASSOC);
-				//$PDOMySQLCon->exec("SET NAMES 'utf8';");
-				return $PDOMySQLCon;
+			if (Connections::$PDOMySQLConnection == null)
+				throw new \Exception('ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒÑÑ Ðº ÑÐµÑ€Ð²ÐµÑ€Ñƒ.');
+			Connections::$PDOMySQLConnection->setAttribute(\PDO::ATTR_ERRMODE				, \PDO::ERRMODE_EXCEPTION);
+			Connections::$PDOMySQLConnection->setAttribute(\PDO::ATTR_EMULATE_PREPARES		, Core\DBConfiguration::$MySQLIsEmulatePrepares);
+			Connections::$PDOMySQLConnection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE	, \PDO::FETCH_ASSOC);
+			//Connections::$PDOMySQLConnection->exec("SET NAMES 'utf8';");
+			return Connections::$PDOMySQLConnection;
 		} catch (\Exception $e) {
-			//throw new \Exception('Îøèáêà ñîåäèíåíèÿ c MySQL:' . iconv('cp1251', 'UTF-8', $e->getMessage()) );
-			//throw new Core\ExceptionToLog('Îøèáêà ñîåäèíåíèÿ c MySQL:' . mb_convert_encoding($e->getMessage(), 'utf-8', mb_detect_encoding($e->getMessage())) );
-			throw new Core\ExceptionToLog('Îøèáêà ñîåäèíåíèÿ c MySQL: ' . $e->getMessage());
-			//throw new Core\ExceptionToLog('Îøèáêà ñîåäèíåíèÿ c MySQL:' . iconv('cp1251', 'UTF-8', $e->getMessage()) );
+			//throw new \Exception('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ c MySQL:' . iconv('cp1251', 'UTF-8', $e->getMessage()) );
+			//throw new Core\ExceptionToLog('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ c MySQL:' . mb_convert_encoding($e->getMessage(), 'utf-8', mb_detect_encoding($e->getMessage())) );
+			throw new Core\ExceptionToLog('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ c MySQL: ' . $e->getMessage());
+			//throw new Core\ExceptionToLog('ÐžÑˆÐ¸Ð±ÐºÐ° ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ c MySQL:' . iconv('cp1251', 'UTF-8', $e->getMessage()) );
 		}
 	}
+	
+	private static $PDOMySQLConnection = null;
 }
 
 

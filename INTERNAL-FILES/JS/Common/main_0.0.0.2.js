@@ -18,8 +18,6 @@ function AjaxSendObject(Link, Object, CallBackSuccessful, CallBackFail, CallBack
 		
 		var RequestObject = new XMLHttpRequest();
 		RequestObject.open("POST", Link, true);
-		//RequestObject.setRequestHeader('Content-type', 'multipart/form-data');
-		//RequestObject.setRequestHeader('Content-type', 'Content-Type: text/html; charset=windows-1251');	// нельзя так
 		RequestObject.onreadystatechange = function() {
 			
 			//
@@ -30,7 +28,13 @@ function AjaxSendObject(Link, Object, CallBackSuccessful, CallBackFail, CallBack
 				return;
 			var ResponseObject;
 			try {
-				ResponseObject = JSON.parse(RequestObject.responseText);
+				try {
+					ResponseObject = JSON.parse(RequestObject.responseText);
+				} catch (ex) {
+					if (CallBackFail != null)
+						CallBackFail('непредвиденная ошибка сервера');
+					return;
+			    }
 				if (ResponseObject.IsSuccessful) {
 					if (CallBackSuccessful != null)
 						CallBackSuccessful(ResponseObject);

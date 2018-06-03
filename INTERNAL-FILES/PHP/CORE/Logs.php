@@ -76,8 +76,8 @@ function LogWrite($Message, $Prefix = 'MainLog_') {
 	$FullPath		= $LogsPath . $FileName;
 	$FullMessage	= '<br>' . date("H:i:s") . '  -  ' . $Message . '<br>';
 	if (!file_exists($FullPath))
-		//$FullMessage = '<meta charset="utf-8">' . $FullMessage;
-		$FullMessage = '<meta charset="windows-1251">' . $FullMessage;
+		$FullMessage = '<meta charset="utf-8">' . $FullMessage;
+		//$FullMessage = '<meta charset="windows-1251">' . $FullMessage;
 	file_put_contents($FullPath, $FullMessage, FILE_APPEND);
 	
 	//

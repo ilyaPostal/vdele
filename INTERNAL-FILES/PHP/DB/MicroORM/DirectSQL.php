@@ -43,7 +43,7 @@ class DirectSQL {
 	public function __construct($PDOObj = null, $DirectSQLSessionName = null) {
 		
 		//
-		//$PDOObj должен быть с указанными атрибутами.
+		//$PDOObj РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЃ СѓРєР°Р·Р°РЅРЅС‹РјРё Р°С‚СЂРёР±СѓС‚Р°РјРё.
 		//
 		//$PDOObj->setAttribute(PDO::ATTR_ERRMODE				, PDO::ERRMODE_\Exception);
 		//$PDOObj->setAttribute(PDO::ATTR_EMULATE_PREPARES		, false);
@@ -67,14 +67,14 @@ class DirectSQL {
 			$this->PrepareParamsSelectSQL	= $this->PrepareParamsSelectSQL !== null && count($this->PrepareParamsSelectSQL) > 0	? $this->PrepareParamsSelectSQL : null;
 			
 			//////////////////////////////////////////
-			//	Распаковка составных параметров для //
-			//			SQL выражений IN ()			//
+			//	Р Р°СЃРїР°РєРѕРІРєР° СЃРѕСЃС‚Р°РІРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ //
+			//			SQL РІС‹СЂР°Р¶РµРЅРёР№ IN ()			//
 			//////////////////////////////////////////
 			
 			self::UnpackParams($this->SelectSQL, $this->PrepareParamsSelectSQL);
 			
 			//////////////////////////////////////////
-			//		 Заполнение	$SelectResult		//
+			//		 Р—Р°РїРѕР»РЅРµРЅРёРµ	$SelectResult		//
 			//////////////////////////////////////////
 			
 			$this->SelectResult	= null;
@@ -83,18 +83,18 @@ class DirectSQL {
 			if ($this->PrepareParamsSelectSQL != null) {
 				$PDOQuery		= $this->PDOConnection->prepare($this->SelectSQL);
 				if ($PDOQuery == false)
-					throw new \Exception('Ошибка в вызове prepare()');
+					throw new \Exception('РћС€РёР±РєР° РІ РІС‹Р·РѕРІРµ prepare()');
 				$IsComplete		= $PDOQuery->execute($this->PrepareParamsSelectSQL);
 				if (!$IsComplete)
-					throw new \Exception('Ошибка в вызове execute()');
+					throw new \Exception('РћС€РёР±РєР° РІ РІС‹Р·РѕРІРµ execute()');
 			} else {
 				$PDOQuery		= $this->PDOConnection->query($this->SelectSQL);
 				if ($PDOQuery == false)
-					throw new \Exception('Ошибка в вызове query()');
+					throw new \Exception('РћС€РёР±РєР° РІ РІС‹Р·РѕРІРµ query()');
 			}
 			
 			//
-			// MSSQL присылает булевы значения как строки "1" и "0". /facepalm
+			// MSSQL РїСЂРёСЃС‹Р»Р°РµС‚ Р±СѓР»РµРІС‹ Р·РЅР°С‡РµРЅРёСЏ РєР°Рє СЃС‚СЂРѕРєРё "1" Рё "0". /facepalm
 			//
 			
 // 			$this->SelectResult	= array();
@@ -112,7 +112,7 @@ class DirectSQL {
 			$this->SelectResult = $PDOQuery->fetchAll();
 			
 			//////////////////////////////////////////
-			//		 Заполнение	$ColumnNames		//
+			//		 Р—Р°РїРѕР»РЅРµРЅРёРµ	$ColumnNames		//
 			//////////////////////////////////////////
 			
 			$this->ColumnNames = null;
@@ -123,7 +123,7 @@ class DirectSQL {
 			}
 			
 			//////////////////////////////////////////
-			//			   Заполнение				//
+			//			   Р—Р°РїРѕР»РЅРµРЅРёРµ				//
 			//			$StorageResultArray			//
 			//////////////////////////////////////////
 			
@@ -150,7 +150,7 @@ class DirectSQL {
 			}
 			
 		} catch (\Exception $e) {
-			throw new \Exception('Ошибка в объекте класса DirectSQL. Метод Select().'
+			throw new \Exception('РћС€РёР±РєР° РІ РѕР±СЉРµРєС‚Рµ РєР»Р°СЃСЃР° DirectSQL. РњРµС‚РѕРґ Select().'
 					. "\r\n" . 'Error message: ' . $e->getMessage());
 		}
 	}
@@ -183,7 +183,7 @@ class DirectSQL {
 			$this->DirectSQLSessionName = $ObjectSessionName != null ? $ObjectSessionName : $this->DirectSQLSessionName;
 			
 			if ($this->DirectSQLSessionName == null)
-				throw new \Exception('Не заданно имя переменной для сохранения в сессии.');
+				throw new \Exception('РќРµ Р·Р°РґР°РЅРЅРѕ РёРјСЏ РїРµСЂРµРјРµРЅРЅРѕР№ РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РІ СЃРµСЃСЃРёРё.');
 				
 			if (session_status() !== PHP_SESSION_ACTIVE)
 				session_start();
@@ -192,7 +192,7 @@ class DirectSQL {
 			session_write_close();
 					
 		} catch (\Exception $e) {
-			throw new \Exception('Ошибка в объекте класса DirectSQL. Метод StorageSave(' . $this->DirectSQLSessionName . ').'
+			throw new \Exception('РћС€РёР±РєР° РІ РѕР±СЉРµРєС‚Рµ РєР»Р°СЃСЃР° DirectSQL. РњРµС‚РѕРґ StorageSave(' . $this->DirectSQLSessionName . ').'
 					. "\r\n" . 'Error message: ' . $e->getMessage());
 		}
 	}
@@ -214,7 +214,7 @@ class DirectSQL {
 			session_write_close();
 				
 		} catch (\Exception $e) {
-			throw new \Exception('Ошибка в объекте класса DirectSQL. Метод StorageRestore(' . $this->DirectSQLSessionName . ').'
+			throw new \Exception('РћС€РёР±РєР° РІ РѕР±СЉРµРєС‚Рµ РєР»Р°СЃСЃР° DirectSQL. РњРµС‚РѕРґ StorageRestore(' . $this->DirectSQLSessionName . ').'
 					. "\r\n" . 'Error message: ' . $e->getMessage());
 		}
 	}
@@ -270,13 +270,13 @@ class DirectSQL {
 				} else {
 					if ($DMLType == self::DMLTypeUpdate || $DMLType == self::DMLTypeDelete) {
 						if (!self::CheckSecureColumns($this->StorageResultArray, $DMLRows))
-							throw new \Exception('Класс DirectSQL. Метод ExcecuteDML(). Ошибка при проверке зачищённой колонки.');
+							throw new \Exception('РљР»Р°СЃСЃ DirectSQL. РњРµС‚РѕРґ ExcecuteDML(). РћС€РёР±РєР° РїСЂРё РїСЂРѕРІРµСЂРєРµ Р·Р°С‡РёС‰С‘РЅРЅРѕР№ РєРѕР»РѕРЅРєРё.');
 					}
 					
 					$DMLResult			= null;
 					$ParamNamesCount	= count($ParamNames);
 					for ($i = 0; $i < $DMLRowsCount; $i++) {
-						$PDOQuery		= $this->PDOConnection->prepare($SQL);	//Внутри цикла из-за глюков PDO/MySQL
+						$PDOQuery		= $this->PDOConnection->prepare($SQL);	//Р’РЅСѓС‚СЂРё С†РёРєР»Р° РёР·-Р·Р° РіР»СЋРєРѕРІ PDO/MySQL
 						$ArrayParams	= null;
 						if ($PrepareParams !== null)
 							foreach ($PrepareParams as $key => $value)
@@ -295,15 +295,15 @@ class DirectSQL {
 						$IsComplete		= $PDOQuery->execute($ArrayParams);
 						unset($DMLRows[$i]);
 						if (!$IsComplete)
-							throw new \Exception('Класс DirectSQL. Метод ExcecuteDML(). Ошибка при выполнении DML. SQL: ' . $SQL);
+							throw new \Exception('РљР»Р°СЃСЃ DirectSQL. РњРµС‚РѕРґ ExcecuteDML(). РћС€РёР±РєР° РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё DML. SQL: ' . $SQL);
 						
 						if ($IsGetDMLResult) {
 							$DMLResult[]	= DirectSQL::FetchAll($PDOQuery);// $PDOQuery->fetchAll();
 						} else {
 							
 							//
-							// Чтобы не случился глюк PDO/MySQL делаем вид что считываем весь результат.
-							// closeCursor() не работает.
+							// Р§С‚РѕР±С‹ РЅРµ СЃР»СѓС‡РёР»СЃСЏ РіР»СЋРє PDO/MySQL РґРµР»Р°РµРј РІРёРґ С‡С‚Рѕ СЃС‡РёС‚С‹РІР°РµРј РІРµСЃСЊ СЂРµР·СѓР»СЊС‚Р°С‚.
+							// closeCursor() РЅРµ СЂР°Р±РѕС‚Р°РµС‚.
 							//
 							
 							try {
@@ -368,7 +368,7 @@ class DirectSQL {
 		$CheckedAssocArrKeys	= array_keys($CheckedAssocArr[0]);
 		
 		//
-		// Получение только используемых $SecureAssocArrKeys
+		// РџРѕР»СѓС‡РµРЅРёРµ С‚РѕР»СЊРєРѕ РёСЃРїРѕР»СЊР·СѓРµРјС‹С… $SecureAssocArrKeys
 		//
 		
 		$SecureAssocArrKeys		= array_uintersect($SecureAssocArrKeys, $CheckedAssocArrKeys
@@ -390,7 +390,7 @@ class DirectSQL {
 	}
 	
 	//
-	// Получение переменной из сессии
+	// РџРѕР»СѓС‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ РёР· СЃРµСЃСЃРёРё
 	//
 
 	private function GetSessionVarInStruct($StructNamesArr) {
@@ -407,12 +407,12 @@ class DirectSQL {
 	}
 	
 	//////////////////////////////////////////
-	// Преобразование запроса и параметров.	//
-	// 	 Если подготавливаемые параметры	//
-	// содержат массивы	для выраженией IN()	//
-	// 	  , то они преобразуются в общий	//
-	// 		массив, с соответствующим		//
-	// 		 изменением SQL запроса.		//
+	// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ Р·Р°РїСЂРѕСЃР° Рё РїР°СЂР°РјРµС‚СЂРѕРІ.	//
+	// 	 Р•СЃР»Рё РїРѕРґРіРѕС‚Р°РІР»РёРІР°РµРјС‹Рµ РїР°СЂР°РјРµС‚СЂС‹	//
+	// СЃРѕРґРµСЂР¶Р°С‚ РјР°СЃСЃРёРІС‹	РґР»СЏ РІС‹СЂР°Р¶РµРЅРёРµР№ IN()	//
+	// 	  , С‚Рѕ РѕРЅРё РїСЂРµРѕР±СЂР°Р·СѓСЋС‚СЃСЏ РІ РѕР±С‰РёР№	//
+	// 		РјР°СЃСЃРёРІ, СЃ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРј		//
+	// 		 РёР·РјРµРЅРµРЅРёРµРј SQL Р·Р°РїСЂРѕСЃР°.		//
 	//////////////////////////////////////////
 	
 	private static function UnpackParams(&$SQL, &$Params) {
